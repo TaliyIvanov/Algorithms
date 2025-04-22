@@ -24,6 +24,11 @@ Here I am writing ALgorithms in Python.
 - [HeapSort](https://github.com/TaliyIvanov/Algorithms/blob/main/01.Sort/10.HeapSort.py)
 
 ### Search Algorithms
+#### Base
 - [LinearSearch]()
 - [BinarySearch](https://github.com/TaliyIvanov/Algorithms/blob/main/02.Search/01.BinarySearch.py)
 - [ExponentialSearch](https://github.com/TaliyIvanov/Algorithms/blob/main/02.Search/02.ExponentialSearch.py)
+#### Search on Graphs
+- [BFS]()
+- [DFS]()
+- [Connected Component]()
