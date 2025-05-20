@@ -28,6 +28,6 @@ Here I am writing Algorithms in Python.
 - [LinearSearch]()
 - [BinarySearch](https://github.com/TaliyIvanov/Algorithms/blob/main/02.Search/BinarySearch.py)
 - [ExponentialSearch](https://github.com/TaliyIvanov/Algorithms/blob/main/02.Search/ExponentialSearch.py)
-#### Search on Graphs
+### Algorithms on Graphs
 - [BFS](https://github.com/TaliyIvanov/Algorithms/blob/main/02.Search/BFS_BreadthFirstSearch.py)
 - [DFS](https://github.com/TaliyIvanov/Algorithms/blob/main/02.Search/DFS_DepthFirstSearch.py)
