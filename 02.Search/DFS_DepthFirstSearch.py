@@ -129,38 +129,90 @@ for v, u in edges:
 
 
 
-
-def DFS(graph_obj, v, used=None, result=None):
+# recursive approach
+def dfs_recursive(graph_obj, v, used=None, result=None):
     """
-    Выполняет обход графа в глубину (DFS) начиная с вершины v.
+    Performs a Depth-First Search (DFS) on a graph, starting from vertex 'v'.  This is the recursive implementation.
 
     Args:
-        graph_obj (Graph): Объект графа.
-        v (int): Стартовая вершина.
-        used (dict, optional): Словарь посещённых вершин.
-        result (list, optional): Список обхода вершин.
+        graph_obj (Graph):  A graph object, which should have methods like 'get_neighbors' and an 'adjacency_list' attribute.
+        v (int): The starting vertex for the DFS traversal.
+        used (dict, optional): A dictionary to keep track of visited vertices.  Defaults to None, and is initialized if not provided.
+                               Keys are vertices, and values are booleans (True if visited, False if not).
+        result (list, optional): A list to store the order in which vertices are visited. Defaults to None, and is initialized if not provided.
 
     Returns:
-        list: Порядок обхода вершин.
+        list: A list containing the vertices in the order they were visited during the DFS.
     """
+    # Initialize the 'used' dictionary if it's the first call
     if used is None:
         used = {vertex: False for vertex in graph_obj.adjacency_list}
+    # Initialize the 'result' list if it's the first call
     if result is None:
         result = []
 
+    # Mark the current vertex as visited
     used[v] = True
+    # Add the current vertex to the result list
     result.append(v)
 
+    # Iterate through the neighbors of the current vertex
     for u in graph_obj.get_neighbors(v):
+        # If a neighbor hasn't been visited yet, recursively call DFS on it
         if not used[u]:
-            DFS(graph_obj, u, used, result)
+            dfs_recursive(graph_obj, u, used, result)
 
+    # Return the list of visited vertices in order
+    return result
+
+# iterative approach
+def dfs_iterative(graph, start):
+    """
+    Performs a Depth-First Search (DFS) on a graph using an iterative (non-recursive) approach.
+
+    Args:
+        graph (Graph): A graph object.  Assumed to have a method like 'get_neighbors'.
+        start: The vertex to start the DFS from.
+
+    Returns:
+        list:  A list containing the vertices in the order they were visited.
+    """
+    # Initialize a set to track visited vertices
+    visited = set()
+    # Initialize a stack to simulate the call stack in a recursive DFS.  Starts with the 'start' vertex.
+    stack = [start]
+    # Initialize a list to store the DFS result
+    result = []
+
+    # Mark the starting vertex as visited
+    visited.add(start)
+
+    # Continue while there are vertices on the stack (i.e., still vertices to explore)
+    while stack:
+        # Pop a vertex from the stack (LIFO - Last In, First Out)
+        v = stack.pop()
+        # Add the popped vertex to the result
+        result.append(v)
+        # Iterate through the neighbors of the current vertex, in *reverse* order.
+        # This is done to make the iterative version's order of visiting nodes
+        # match the recursive version more closely.  This ensures the same ordering if a tie exists.
+        for neighbor in reversed(graph.get_neighbors(v)):
+            # If a neighbor hasn't been visited...
+            if neighbor not in visited:
+                # Mark it as visited
+                visited.add(neighbor)
+                # Push the neighbor onto the stack to be explored later
+                stack.append(neighbor)
+
+    # Return the list of visited vertices
     return result
 
 
-dfs_result = DFS(g, 0)
+result_recursive = dfs_recursive(g, 0)
+result_iterative = dfs_iterative(g, 0)
 print(g)
-print("DFS обход:", dfs_result)
+print("DFS обход с рекурсией:", result_recursive)
+print("DFS обход без рекурсии:", result_iterative)
 
 """
 0: [4]
@@ -171,5 +223,6 @@ print("DFS обход:", dfs_result)
 5: [2, 4, 7]
 6: [4, 7]
 7: [5, 6]
-DFS обход: [0, 4, 1, 2, 5, 7, 6]
+DFS обход с рекурсией: [0, 4, 1, 2, 5, 7, 6]
+DFS обход без рекурсии: [0, 4, 1, 2, 5, 7, 6]
 """
